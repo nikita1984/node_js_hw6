@@ -10,9 +10,12 @@
 <body>
 <input type="text" id="input" autofocus>
 
+ 
 <input type="submit" id="send" value="Send">
 
+<!-- 
 <button id="message">Send data</button>
+-->
 
 <div id="messages"></div>
 </body>
@@ -39,10 +42,11 @@
         document.getElementById('input').value = '';
     };
 
-    const data = {username: 'Igor', password: 'verysecurepassword'};
+    // const data = {username: 'Igor', password: 'verysecurepassword'};
 
     const getRandomId = () => Math.floor(Math.random() * 100000);
 
+    /*
     const sendMessage = async () => {
         console.log('Emitting');
         const id = getRandomId();
@@ -65,6 +69,7 @@
     }
 
     document.getElementById('message').onclick = sendMessage;
+    */
 </script>
 </html>
 

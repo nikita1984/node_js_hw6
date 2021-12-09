@@ -1,6 +1,6 @@
 const io = require('socket.io')
 const app = require('./app');
-const startWorker = require('./worker-init');
+// const startWorker = require('./worker-init');
 
 const socketServer = io(app);
 
@@ -35,4 +35,4 @@ app.listen(3030, () => {
     console.log('Server started on port 3030');
 });
 
-startWorker(24).then(result => console.log(result));
+// startWorker(24).then(result => console.log(result));
