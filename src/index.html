@@ -31,6 +31,11 @@
         document.getElementById('messages').append(document.createElement('br'));
     };
 
+    const addUserMessage = (name, msg) => {
+        const text = `${name}: ${msg}`;
+        addMessage(text);
+    };
+
     socket.on('connect', function () {
         console.log('Successful connected to server');
     });
@@ -47,6 +52,7 @@
     socket.on('SERVER_RESPONSE', function (data) {
         console.log('name:', data.name);
         console.log('msg:', data.msg);
+        addUserMessage(data.name, data.msg);
     })
 
     document.getElementById('send').onclick = function () {

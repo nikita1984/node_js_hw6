@@ -13,6 +13,7 @@ const getDefaultName = function(){
     return 'User' + String(cnt);
 };
 
+/*
 const DATABASE = {
     storage: {},
     async saveUser(data) {
@@ -20,6 +21,7 @@ const DATABASE = {
         this.storage[data.payload.username] = data.payload;
     }
 };
+*/
 
 socketServer.on('connection', function (socket) {
     console.log('Connection', socket.id);
@@ -35,7 +37,8 @@ socketServer.on('connection', function (socket) {
         // socket.emit('SERVER_MSG', { msg: data.msg.split('').reverse().join('')});
         // socket.broadcast.emit('SERVER_MSG', { msg: data.msg.split('').reverse().join('')});
 
-        socketServer.emit('SERVER_RESPONSE', {name: data.name, msg: data.msg.split('').reverse().join('')});
+        socket.broadcast.emit('SERVER_RESPONSE', {name: data.name, msg: data.msg.split('').reverse().join('')});
+        // socketServer.emit('SERVER_RESPONSE', {name: data.name, msg: data.msg.split('').reverse().join('')});
     });
 
     socket.on('SAVE_USER_DATA', async function ({payload, id}, ackFn) {
