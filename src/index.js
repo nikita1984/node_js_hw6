@@ -4,6 +4,15 @@ const app = require('./app');
 
 const socketServer = io(app);
 
+const userNames = {};
+const getDefaultName = function(){
+    var cnt = 0;
+    for (user in userNames) {
+        cnt+=1;
+    }
+    return 'User' + String(cnt);
+};
+
 const DATABASE = {
     storage: {},
     async saveUser(data) {
@@ -14,7 +23,11 @@ const DATABASE = {
 
 socketServer.on('connection', function (socket) {
     console.log('Connection', socket.id);
-    socket.broadcast.emit('SERVER_MSG', {msg: `Новый клиент ${socket.id} подключён к чату`});
+    const name = getDefaultName();
+    userNames[name] = socket.id;
+    const data = {name: name};
+    // socket.emit('initName', data);
+    socket.broadcast.emit('SERVER_MSG', {msg: `Новый клиент ${data.name} подключён к чату`});
 
 
     socket.on('CLIENT_MSG', (data) => {
