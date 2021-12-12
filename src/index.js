@@ -14,6 +14,7 @@ const DATABASE = {
 
 socketServer.on('connection', function (socket) {
     console.log('Connection', socket.id);
+    socket.broadcast.emit('SERVER_MSG', {msg: `Новый клиент ${socket.id} подключён к чату`});
 
 
     socket.on('CLIENT_MSG', (data) => {
@@ -29,7 +30,20 @@ socketServer.on('connection', function (socket) {
         ackFn({error: 'ASd'});
     });
 
+    socket.on('disconnect', (data) => {
+        console.log('disconnect');
+        console.log('data:', data);
+        socketServer.emit('SERVER_MSG', {msg: `Клиент отключился от чата`});
+    })
+    
 });
+
+/*
+socketServer.on('disconnecting', function (socket) {
+    console.log('disconnecting', socket.id);
+    socket.broadcast.emit('SERVER_MSG', {msg: `${socket.id} вышел из чата`});
+});
+*/    
 
 app.listen(3030, () => {
     console.log('Server started on port 3030');
