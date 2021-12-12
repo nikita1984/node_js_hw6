@@ -22,6 +22,8 @@
 <script type="text/javascript">
     // const socket = io('localhost:3030');
     const socket = io();
+    
+    let userName = '';
 
     const addMessage = (msg) => {
         const msgSpan = document.createElement('span').innerHTML = msg;
@@ -37,8 +39,18 @@
         addMessage(data.msg);
     });
 
+    socket.on('initName', function (data){
+        console.log('initName:', data);
+        userName = data.name;
+    });
+
+    socket.on('SERVER_RESPONSE', function (data) {
+        console.log('name:', data.name);
+        console.log('msg:', data.msg);
+    })
+
     document.getElementById('send').onclick = function () {
-        socket.emit('CLIENT_MSG', {msg: document.getElementById('input').value});
+        socket.emit('CLIENT_MSG', {name: userName, msg: document.getElementById('input').value});
         document.getElementById('input').value = '';
     };
 

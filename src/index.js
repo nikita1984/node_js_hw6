@@ -26,7 +26,7 @@ socketServer.on('connection', function (socket) {
     const name = getDefaultName();
     userNames[name] = socket.id;
     const data = {name: name};
-    // socket.emit('initName', data);
+    socket.emit('initName', data);
     socket.broadcast.emit('SERVER_MSG', {msg: `Новый клиент ${data.name} подключён к чату`});
 
 
@@ -35,7 +35,7 @@ socketServer.on('connection', function (socket) {
         // socket.emit('SERVER_MSG', { msg: data.msg.split('').reverse().join('')});
         // socket.broadcast.emit('SERVER_MSG', { msg: data.msg.split('').reverse().join('')});
 
-        socketServer.emit('SERVER_MSG', {msg: data.msg.split('').reverse().join('')});
+        socketServer.emit('SERVER_RESPONSE', {name: data.name, msg: data.msg.split('').reverse().join('')});
     });
 
     socket.on('SAVE_USER_DATA', async function ({payload, id}, ackFn) {
@@ -45,7 +45,7 @@ socketServer.on('connection', function (socket) {
 
     socket.on('disconnect', (data) => {
         console.log('disconnect');
-        console.log('data:', data);
+        // console.log('data:', data);
         socketServer.emit('SERVER_MSG', {msg: `Клиент отключился от чата`});
     })
     
