@@ -1,10 +1,13 @@
 const io = require('socket.io')
 const app = require('./app');
+
+const { getDefaultName, userNames } = require('./utils');
 // const startWorker = require('./worker-init');
 
 const socketServer = io(app);
 
-const userNames = {};
+// const userNames = userNames;
+/*
 const getDefaultName = function(){
     var cnt = 0;
     for (user in userNames) {
@@ -12,6 +15,7 @@ const getDefaultName = function(){
     }
     return 'User' + String(cnt);
 };
+*/
 
 /*
 const DATABASE = {
