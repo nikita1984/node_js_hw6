@@ -6,17 +6,6 @@ const { getDefaultName, userNames } = require('./utils');
 
 const socketServer = io(app);
 
-// const userNames = userNames;
-/*
-const getDefaultName = function(){
-    var cnt = 0;
-    for (user in userNames) {
-        cnt+=1;
-    }
-    return 'User' + String(cnt);
-};
-*/
-
 /*
 const DATABASE = {
     storage: {},
